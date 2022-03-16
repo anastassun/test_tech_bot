@@ -4,7 +4,7 @@ from tracemalloc import start
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
 from handlers import info_view, talk_bot, user_contact, vacansies_list, start
 import settings
-from anketa import anketa_start,anketa_name, anketa_rating, anketa_comment, anketa_skip, anketa_dontknow
+from anketa import anketa_start, anketa_name, anketa_rating, anketa_comment, anketa_skip, help #anketa_dontknow
 
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
@@ -26,8 +26,9 @@ def main():
                 MessageHandler(Filters.text, anketa_comment)
             ]
         },
-        fallbacks=[MessageHandler(Filters.text| Filters.video | Filters.photo | Filters.document
-          | Filters.location, anketa_dontknow)]
+        fallbacks=[CommandHandler('help',help)]
+        #fallbacks=[MessageHandler(Filters.text|Filters.video | Filters.photo | Filters.document
+          #| Filters.location, anketa_dontknow)]
     )
 
 
