@@ -2,9 +2,9 @@ import logging, time
 from tracemalloc import start
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, ConversationHandler
-from handlers import info_view, talk_bot, user_contact, vacansies_list, start
+from handlers import info_view, user_contact, vacansies_list, start,talk_bot
 import settings
-from anketa import anketa_start, anketa_name, anketa_rating, anketa_comment, anketa_skip, help #anketa_dontknow
+from anketa import anketa_start, anketa_name, anketa_rating, anketa_comment, anketa_skip, anketa_dontknow
 
 
 logging.basicConfig(filename='bot.log', level=logging.INFO)
@@ -20,15 +20,15 @@ def main():
         ],
         states = {
             "name": [MessageHandler(Filters.text, anketa_name)],
-            "rating":[MessageHandler(Filters.regex('^ (1|2|3|4)$'), anketa_rating)],
+            "rating":[MessageHandler(Filters.regex('^(1|2|3|4)$'), anketa_rating)],
             "comment": [
                 CommandHandler('skip', anketa_skip),
                 MessageHandler(Filters.text, anketa_comment)
             ]
         },
-        fallbacks=[CommandHandler('help',help)]
-        #fallbacks=[MessageHandler(Filters.text|Filters.video | Filters.photo | Filters.document
-          #| Filters.location, anketa_dontknow)]
+        #fallbacks=[CommandHandler('help',help)]
+        fallbacks=[MessageHandler(Filters.text|Filters.video | Filters.photo | Filters.document
+          | Filters.location, anketa_dontknow)]
     )
 
 

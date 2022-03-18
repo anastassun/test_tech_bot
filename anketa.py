@@ -1,7 +1,8 @@
 from logging.handlers import RotatingFileHandler
-from unicodedata import name
-from telegram import ReplyKeyboardRemove, ParseMode #, InlineKeyboardButton #,ReplyKeyboardMarkup
-from telegram.ext import ConversationHandler, InlineKeyboardButton
+#from unicodedata import name
+from telegram import ReplyKeyboardRemove, ParseMode , InlineKeyboardButton, InlineKeyboardMarkup ,ReplyKeyboardMarkup
+from telegram.ext import ConversationHandler 
+
 
 
 def anketa_start (update, context):
@@ -20,9 +21,9 @@ def anketa_name(update,context):
         context.user_data["anketa"] ={"name": user_name}
         reply_keyboard =[{1,2,3,4}]
         update.message.reply_text(
-            "Пожалуйста оцените нашего бота от 1 до 4")#,
-            #reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
-        #)
+            "Пожалуйста оцените нашего бота от 1 до 4"),
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)
+        
         return  "rating"
 
 def anketa_rating(update,context): 
@@ -60,7 +61,7 @@ def help(bot,update):
 
         return "HELP"
 
-#def anketa_dontknow(update, context):
-    #update.message.reply_text("Не понимаю")
+def anketa_dontknow(update, context):
+    update.message.reply_text("Не понимаю")
 
 
